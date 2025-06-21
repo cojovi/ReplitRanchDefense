@@ -24,7 +24,7 @@ enum Controls {
 export default function Player() {
   const playerRef = useRef<THREE.Group>(null);
   const { camera, gl } = useThree();
-  const [, getKeys] = useKeyboardControls<Controls>();
+  const [subscribe, getKeys] = useKeyboardControls<Controls>();
   const player = usePlayer((state) => state);
   const { 
     updatePosition, 

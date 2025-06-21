@@ -17,7 +17,7 @@ enum Controls {
 
 export default function Weapon() {
   const weaponRef = useRef<THREE.Group>(null);
-  const [, getKeys] = useKeyboardControls<Controls>();
+  const [subscribe, getKeys] = useKeyboardControls<Controls>();
   const { 
     currentWeapon, 
     weapons, 
