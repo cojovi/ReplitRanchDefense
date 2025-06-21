@@ -2,6 +2,7 @@ import { create } from "zustand";
 import * as THREE from "three";
 import { useEnemies } from "./useEnemies";
 import { useGameState } from "./useGameState";
+import { playSound } from "../utils/audio";
 
 export type WeaponType = "rifle" | "shotgun" | "tnt";
 

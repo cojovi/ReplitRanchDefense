@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import * as THREE from "three";
+import { useGameState } from "./useGameState";
 
 interface PlayerState {
   position: THREE.Vector3;
@@ -64,7 +65,6 @@ export const usePlayer = create<PlayerState>((set, get) => ({
     // Check for game over
     if (newHealth <= 0) {
       console.log("Player died! Game over.");
-      const { useGameState } = require("./useGameState");
       setTimeout(() => {
         useGameState.getState().endGame();
       }, 1000);

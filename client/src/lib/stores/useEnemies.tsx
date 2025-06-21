@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import * as THREE from "three";
+import { usePlayer } from "./usePlayer";
+import { onEnemyKilled } from "../utils/audio";
 
 export type EnemyState = "patrolling" | "charging" | "dead";
 
@@ -132,7 +134,6 @@ export const useEnemies = create<EnemiesState>((set, get) => ({
             enemy.lastAttackTime = currentTime;
             
             // Actually damage the player
-            const { usePlayer } = require("./usePlayer");
             usePlayer.getState().takeDamage(enemy.damage);
           }
         }
@@ -165,7 +166,6 @@ export const useEnemies = create<EnemiesState>((set, get) => ({
             console.log(`Enemy ${enemyId} died`);
             
             // Play death sound
-            const { onEnemyKilled } = require("../utils/audio");
             onEnemyKilled();
             
             // Remove enemy after delay
