@@ -65,14 +65,15 @@ export default function Weapon() {
     if (gameState !== 'playing' || isPaused) return;
 
     const keys = getKeys();
+    console.log('Weapon keys object:', keys); // Debug log
 
     // Weapon switching
-    if (keys.weapon1) switchWeapon('rifle');
-    if (keys.weapon2 && weapons.shotgun.unlocked) switchWeapon('shotgun');
-    if (keys.weapon3 && weapons.tnt.unlocked) switchWeapon('tnt');
+    if (keys?.weapon1) switchWeapon('rifle');
+    if (keys?.weapon2 && weapons.shotgun.unlocked) switchWeapon('shotgun');
+    if (keys?.weapon3 && weapons.tnt.unlocked) switchWeapon('tnt');
 
     // Reload
-    if (keys.reload) {
+    if (keys?.reload) {
       reload();
     }
 

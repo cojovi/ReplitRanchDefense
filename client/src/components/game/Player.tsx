@@ -72,7 +72,8 @@ export default function Player() {
     if (gameState !== 'playing' || isPaused || !playerRef.current || !player) return;
 
     const keys = getKeys();
-    const moveSpeed = keys.sprint ? player.sprintSpeed : player.moveSpeed;
+    console.log('Keys object:', keys); // Debug log
+    const moveSpeed = keys?.sprint ? player.sprintSpeed : player.moveSpeed;
     
     // Calculate movement direction based on camera rotation
     const direction = new THREE.Vector3();
@@ -86,10 +87,10 @@ export default function Player() {
 
     const moveVector = new THREE.Vector3();
     
-    if (keys.forward) moveVector.add(direction);
-    if (keys.backward) moveVector.sub(direction);
-    if (keys.rightward) moveVector.add(rightVector);
-    if (keys.leftward) moveVector.sub(rightVector);
+    if (keys?.forward) moveVector.add(direction);
+    if (keys?.backward) moveVector.sub(direction);
+    if (keys?.rightward) moveVector.add(rightVector);
+    if (keys?.leftward) moveVector.sub(rightVector);
     
     moveVector.normalize().multiplyScalar(moveSpeed);
     
@@ -100,7 +101,7 @@ export default function Player() {
       moveVector.z
     );
 
-    if (keys.jump && player?.isGrounded) {
+    if (keys?.jump && player?.isGrounded) {
       newVelocity.y = player.jumpPower;
       jump();
     }
