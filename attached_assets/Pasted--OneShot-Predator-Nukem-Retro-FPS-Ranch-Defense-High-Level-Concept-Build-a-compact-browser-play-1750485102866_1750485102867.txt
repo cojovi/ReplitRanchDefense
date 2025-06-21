@@ -1,0 +1,66 @@
+“OneShot Predator Nukem” – Retro FPS Ranch Defense
+
+High-Level Concept
+Build a compact, browser-playable first-person shooter that deliberately mimics the chunky, 2.5-D “Build-engine” look-and-feel of Duke Nukem 3D (1996). Swap the original sci-fi story for a Texas ranch setting where a tough hunter defends his cattle from invasive wild hogs and boars. Aim for the same tongue-in-cheek attitude, one-liners, and over-the-top explosions—just re-skinned for rural predator control.
+
+Mandatory Feature Checklist
+Area	Requirements
+Core Engine	• WebGL or WASM build so it runs in-browser.
+• Retro “2.5-D” render (sprite enemies + textured sectors).
+• 60 FPS target on desktop chrome.
+Levels	• 1–3 contiguous stages that feel like one large ranch map (barn, pasture, creek, equipment shed).
+• Key-card or switch gates to teach progression.
+Player	• FPS camera, WASD + mouse-look.
+• Sprint + jump.
+• Health & ammo HUD in chunky pixel font.
+Weapons	• Start with lever-action rifle (infinite slow reload).
+• Pickup: pump shotgun (short range spread).
+• Optional creative twist: “TX-TNT” bundles that clear fence rows— basically pipe-bomb analog.
+Enemies	• Wild boar sprites with 3 states: patrol, charge, death-gib.
+• At least two variants (standard, armored tusker w/ more HP).
+A I / Behaviors	• Boars wander until within 20 m → aggro: zig-zag charge & gore.
+• Basic navmesh or sector stalking—keep it ’96-authentic.
+Audio	• Midi-style guitar/banjo metal loop.
+• Punchy digitized gunshots; squeals on death.
+• Hunter one-liners: “That’ll do, pig!” triggered on triple-kill, etc.
+Visual Style	• 256-color palette, low-res (320×240 internal, scale up).
+• Bill-board sprites & parallax skybox with dusk gradient.
+UI / Menus	• Big pixelated title splash, difficulty select (Easy, Ranch Hand, Hardcore).
+• Pause menu with controls list & ‘Quit to Pasture’.
+Scoring & Win State	• Show hogs culled / accuracy / time on victory screen.
+• Optional leaderboard via browser localStorage.
+Controls (Default)	WASD move • Mouse look • Space jump • Shift sprint • 1/2/3 cycle guns • Left-click fire • Right-click throw TNT.
+Assets & Licensing	• All art, audio, fonts either CC0 or generator-created so final package is royalty-free.
+Deliverables	• Single-page web build in /dist with index.html.
+• /src folder with TypeScript or ES6 modules, asset pipeline, README build steps.
+
+Stretch / Creative Liberties
+Dynamic Day–Night Cycle – level slowly fades to night; boars get red eyes & faster after dusk.
+
+“Barn Boss” Mini-Boss – massive tusker that rams barn doors; weak spot after it charges a wall.
+
+Hidden Duke-Style Easter Egg Room – pixel poster of the original Duke; plays a 2-second guitar riff.
+
+CRT Filter Toggle – scanlines & slight barrel distortion (V key).
+
+Feel free to adjust or add gameplay flourishes that heighten the retro fun while keeping scope tight.
+
+Technical Hints for the Generator
+Favor Three.js + custom shader sprites or Godot 4 Web export for fastest WebGL deployment.
+
+Use a sector BSP approach (à la Build engine) for low-overhead level geo.
+
+Bundle textures in a single power-of-two atlas; keep sprite sheets ≤ 2048 px.
+
+Ship a minimal asset preloader with a Doom-style progress bar.
+
+Provide commented code showing how to swap textures so end-user can mod easily.
+
+Acceptance Criteria
+Playable E2E in latest Chrome & Firefox without additional installs.
+
+All checklist items ticked; stretch goals are optional but encouraged.
+
+Build instructions & dev server command (npm run dev) in README.md.
+
+Goal: deliver a nostalgic, one-sitting, boar-blasting romp that feels like Duke Nukem on a Texas ranch—complete, self-contained, and mod-friendly.
