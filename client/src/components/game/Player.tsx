@@ -1,30 +1,16 @@
 import { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useKeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
 import { usePlayer } from "../../lib/stores/usePlayer";
 import { useGameState } from "../../lib/stores/useGameState";
 import { checkCollision } from "../../lib/utils/collision";
+import { useCustomKeyboard } from "../../hooks/useCustomKeyboard";
 import Weapon from "./Weapon";
-
-enum Controls {
-  forward = 'forward',
-  backward = 'backward',
-  leftward = 'leftward',
-  rightward = 'rightward',
-  jump = 'jump',
-  sprint = 'sprint',
-  fire = 'fire',
-  reload = 'reload',
-  weapon1 = 'weapon1',
-  weapon2 = 'weapon2',
-  weapon3 = 'weapon3'
-}
 
 export default function Player() {
   const playerRef = useRef<THREE.Group>(null);
   const { camera, gl } = useThree();
-  const [subscribe, getKeys] = useKeyboardControls<Controls>();
+  const getKeys = useCustomKeyboard();
   const player = usePlayer((state) => state);
   const { 
     updatePosition, 
@@ -72,7 +58,7 @@ export default function Player() {
     if (gameState !== 'playing' || isPaused || !playerRef.current || !player) return;
 
     const keys = getKeys();
-    const moveSpeed = keys?.sprint ? player.sprintSpeed : player.moveSpeed;
+    const moveSpeed = keys.sprint ? player.sprintSpeed : player.moveSpeed;
     
     // Calculate movement direction based on camera rotation
     const direction = new THREE.Vector3();
@@ -86,10 +72,10 @@ export default function Player() {
 
     const moveVector = new THREE.Vector3();
     
-    if (keys?.forward) moveVector.add(direction);
-    if (keys?.backward) moveVector.sub(direction);
-    if (keys?.rightward) moveVector.add(rightVector);
-    if (keys?.leftward) moveVector.sub(rightVector);
+    if (keys.forward) moveVector.add(direction);
+    if (keys.backward) moveVector.sub(direction);
+    if (keys.rightward) moveVector.add(rightVector);
+    if (keys.leftward) moveVector.sub(rightVector);
     
     moveVector.normalize().multiplyScalar(moveSpeed);
     
