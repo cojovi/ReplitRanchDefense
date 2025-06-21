@@ -236,7 +236,6 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
           useGameState.getState().updateScore(10);
           
           // Play hit sound
-          const { playSound } = require("../utils/audio");
           playSound('/sounds/hit.mp3', 0.4);
           
           // Remove bullet

@@ -72,7 +72,6 @@ export default function Player() {
     if (gameState !== 'playing' || isPaused || !playerRef.current || !player) return;
 
     const keys = getKeys();
-    console.log('Keys object:', keys); // Debug log
     const moveSpeed = keys?.sprint ? player.sprintSpeed : player.moveSpeed;
     
     // Calculate movement direction based on camera rotation

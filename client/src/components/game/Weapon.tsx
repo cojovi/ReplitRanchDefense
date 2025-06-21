@@ -65,7 +65,6 @@ export default function Weapon() {
     if (gameState !== 'playing' || isPaused) return;
 
     const keys = getKeys();
-    console.log('Weapon keys object:', keys); // Debug log
 
     // Weapon switching
     if (keys?.weapon1) switchWeapon('rifle');
