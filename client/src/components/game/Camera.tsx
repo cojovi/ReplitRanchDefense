@@ -1,5 +1,6 @@
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
+import * as THREE from "three";
 import { usePlayer } from "../../lib/stores/usePlayer";
 
 export default function Camera() {
@@ -13,8 +14,11 @@ export default function Camera() {
     } else {
       camera.position.set(0, 1.7, 0);
     }
-    camera.fov = 75;
-    camera.updateProjectionMatrix();
+
+    if ('fov' in camera) {
+      (camera as THREE.PerspectiveCamera).fov = 75;
+      (camera as THREE.PerspectiveCamera).updateProjectionMatrix();
+    }
   }, [camera, player?.position]);
 
   return null;

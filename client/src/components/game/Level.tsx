@@ -79,7 +79,7 @@ export default function Level() {
         [25, 1, -5],
         [-15, 1, -8]
       ].map((pos, i) => (
-        <mesh key={`hay-${i}`} castShadow position={pos}>
+        <mesh key={`hay-${i}`} castShadow position={pos as [number, number, number]}>
           <cylinderGeometry args={[1.5, 1.5, 2, 8]} />
           <meshLambertMaterial color="#DAA520" />
         </mesh>
@@ -92,7 +92,7 @@ export default function Level() {
         [-25, 0, 30],
         [35, 0, -25]
       ].map((pos, i) => (
-        <group key={`tree-${i}`} position={pos}>
+        <group key={`tree-${i}`} position={pos as [number, number, number]}>
           {/* Trunk */}
           <mesh castShadow position={[0, 4, 0]}>
             <cylinderGeometry args={[0.8, 1, 8, 8]} />
