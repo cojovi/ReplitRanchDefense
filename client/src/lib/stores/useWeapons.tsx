@@ -212,43 +212,54 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
     const hitRadius = 1;
     
     const updatedBullets = bullets.filter((bullet) => {
-      // Update bullet position
-      bullet.position.add(bullet.direction.clone().multiplyScalar(bullet.speed * delta));
-      bullet.life += delta;
-      
-      // Check if bullet expired
-      if (bullet.life >= bullet.maxLife) {
+      // Safety check for bullet properties
+      if (!bullet || !bullet.position || !bullet.direction) {
+        console.warn('Invalid bullet detected, removing:', bullet);
         return false;
       }
       
-      // Check collision with enemies
-      for (const enemy of enemies) {
-        if (enemy.state === "dead") continue;
+      try {
+        // Update bullet position
+        bullet.position.add(bullet.direction.clone().multiplyScalar(bullet.speed * delta));
+        bullet.life += delta;
         
-        const distance = bullet.position.distanceTo(enemy.position);
-        if (distance < hitRadius) {
-          console.log(`Bullet hit enemy ${enemy.id} for ${bullet.damage} damage`);
-          
-          // Damage enemy
-          useEnemies.getState().damageEnemy(enemy.id, bullet.damage);
-          
-          // Add score
-          useGameState.getState().updateScore(10);
-          
-          // Play hit sound
-          playSound('/sounds/hit.mp3', 0.4);
-          
-          // Remove bullet
+        // Check if bullet expired
+        if (bullet.life >= bullet.maxLife) {
           return false;
         }
+        
+        // Check collision with enemies
+        for (const enemy of enemies) {
+          if (!enemy || !enemy.position || enemy.state === "dead") continue;
+          
+          const distance = bullet.position.distanceTo(enemy.position);
+          if (distance < hitRadius) {
+            console.log(`Bullet hit enemy ${enemy.id} for ${bullet.damage} damage`);
+            
+            // Damage enemy
+            useEnemies.getState().damageEnemy(enemy.id, bullet.damage);
+            
+            // Add score
+            useGameState.getState().updateScore(10);
+            
+            // Play hit sound
+            playSound('/sounds/hit.mp3', 0.4);
+            
+            // Remove bullet
+            return false;
+          }
+        }
+        
+        // Check ground collision
+        if (bullet.position.y < 0) {
+          return false;
+        }
+        
+        return true;
+      } catch (error) {
+        console.error('Error updating bullet:', error, bullet);
+        return false; // Remove problematic bullet
       }
-      
-      // Check ground collision
-      if (bullet.position.y < 0) {
-        return false;
-      }
-      
-      return true;
     });
     
     set({ bullets: updatedBullets });

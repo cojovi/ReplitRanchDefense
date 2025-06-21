@@ -33,12 +33,21 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [toggleMute]);
 
-  // Request pointer lock for mouse look
+  // Handle pointer lock requests safely
   useEffect(() => {
     if (gameState === 'playing') {
       const canvas = document.querySelector('canvas');
-      if (canvas && !isPaused) {
-        canvas.requestPointerLock();
+      if (canvas && !isPaused && document.pointerLockElement !== canvas) {
+        // Only request pointer lock on user interaction
+        const handleUserClick = () => {
+          try {
+            canvas.requestPointerLock();
+          } catch (error) {
+            // Pointer lock errors are not critical for gameplay
+          }
+        };
+        canvas.addEventListener('click', handleUserClick, { once: true });
+        return () => canvas.removeEventListener('click', handleUserClick);
       }
     }
   }, [gameState, isPaused]);

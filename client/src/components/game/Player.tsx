@@ -39,8 +39,13 @@ export default function Player() {
     };
 
     const handleClick = () => {
-      if (gameState === 'playing' && !isPaused) {
-        gl.domElement.requestPointerLock();
+      if (gameState === 'playing' && !isPaused && document.pointerLockElement !== gl.domElement) {
+        try {
+          gl.domElement.requestPointerLock();
+        } catch (error) {
+          // Silently handle pointer lock errors - they're not critical
+          console.log('Pointer lock request failed:', error);
+        }
       }
     };
 

@@ -1,0 +1,52 @@
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Firing rifle
+Sound skipped (muted): /sounds/rifle.mp3
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
+Cannot read properties of undefined (reading 'value')
