@@ -94,7 +94,7 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
     }
   },
   
-  fire: (position, rotation) => {
+  fire: (position: THREE.Vector3, rotation: THREE.Euler) => {
     const { currentWeapon, weapons, bullets, shotsFired } = get();
     const weapon = weapons[currentWeapon];
     
@@ -102,18 +102,28 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
       return;
     }
     
+    // Validate inputs
+    if (!position || !rotation) {
+      console.error('Invalid position or rotation passed to fire:', { position, rotation });
+      return;
+    }
+    
+    // Use the validated inputs directly
+    const bulletPosition = position;
+    const bulletRotation = rotation;
+    
     console.log(`Firing ${currentWeapon}`);
     
     // Create bullets based on weapon type
     const newBullets: Bullet[] = [];
     const forward = new THREE.Vector3(0, 0, -1);
-    forward.applyEuler(rotation);
+    forward.applyEuler(bulletRotation);
     
     if (currentWeapon === "rifle") {
       // Single precise bullet
       newBullets.push({
         id: Math.random().toString(36).substr(2, 9),
-        position: position.clone(),
+        position: bulletPosition.clone(),
         direction: forward.clone(),
         speed: 100,
         damage: weapon.damage,
@@ -132,7 +142,7 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
         
         newBullets.push({
           id: Math.random().toString(36).substr(2, 9),
-          position: position.clone(),
+          position: bulletPosition.clone(),
           direction: pelletDirection,
           speed: 80,
           damage: weapon.damage,
@@ -144,7 +154,7 @@ export const useWeapons = create<WeaponsState>((set, get) => ({
       // Explosive projectile
       newBullets.push({
         id: Math.random().toString(36).substr(2, 9),
-        position: position.clone(),
+        position: bulletPosition.clone(),
         direction: forward.clone(),
         speed: 30,
         damage: weapon.damage,
