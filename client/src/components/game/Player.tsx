@@ -86,7 +86,7 @@ export default function Player() {
       moveVector.z
     );
 
-    if (keys?.jump && player?.isGrounded) {
+    if (keys.jump && player?.isGrounded) {
       newVelocity.y = player.jumpPower;
       jump();
     }

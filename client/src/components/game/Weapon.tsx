@@ -1,23 +1,15 @@
 import { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useKeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useWeapons } from "../../lib/stores/useWeapons";
 import { usePlayer } from "../../lib/stores/usePlayer";
 import { useGameState } from "../../lib/stores/useGameState";
 import { playSound } from "../../lib/utils/audio";
-
-enum Controls {
-  fire = 'fire',
-  reload = 'reload',
-  weapon1 = 'weapon1',
-  weapon2 = 'weapon2',
-  weapon3 = 'weapon3'
-}
+import { useCustomKeyboard } from "../../hooks/useCustomKeyboard";
 
 export default function Weapon() {
   const weaponRef = useRef<THREE.Group>(null);
-  const [subscribe, getKeys] = useKeyboardControls<Controls>();
+  const getKeys = useCustomKeyboard();
   const { 
     currentWeapon, 
     weapons, 
@@ -33,32 +25,7 @@ export default function Weapon() {
   const recoilAmount = useRef(0);
   const firePressed = useRef(false);
 
-  // Handle mouse clicks for firing
-  useEffect(() => {
-    const handleMouseDown = (event: MouseEvent) => {
-      if (gameState !== 'playing' || isPaused) return;
-      if (event.button === 0) { // Left mouse button
-        console.log("Mouse clicked - attempting to fire");
-        if (canFire() && player?.position && player?.rotation) {
-          fire(player.position, player.rotation);
-          recoilAmount.current = 0.1;
-          
-          // Play weapon sound
-          if (currentWeapon === 'rifle') {
-            playSound('/sounds/rifle.mp3', 0.3);
-          } else if (currentWeapon === 'shotgun') {
-            playSound('/sounds/shotgun.mp3', 0.5);
-          }
-          console.log("Weapon fired!");
-        } else {
-          console.log("Cannot fire:", { canFire: canFire(), hasPlayer: !!player });
-        }
-      }
-    };
 
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [gameState, isPaused, canFire, fire, player, currentWeapon]);
 
   // Handle weapon switching and other controls
   useFrame((state, delta) => {
@@ -67,13 +34,26 @@ export default function Weapon() {
     const keys = getKeys();
 
     // Weapon switching
-    if (keys?.weapon1) switchWeapon('rifle');
-    if (keys?.weapon2 && weapons.shotgun.unlocked) switchWeapon('shotgun');
-    if (keys?.weapon3 && weapons.tnt.unlocked) switchWeapon('tnt');
+    if (keys.weapon1) switchWeapon('rifle');
+    if (keys.weapon2 && weapons.shotgun.unlocked) switchWeapon('shotgun');
+    if (keys.weapon3 && weapons.tnt.unlocked) switchWeapon('tnt');
 
     // Reload
-    if (keys?.reload) {
+    if (keys.reload) {
       reload();
+    }
+
+    // Handle firing
+    if (keys.fire && canFire() && player?.position && player?.rotation) {
+      fire(player.position, player.rotation);
+      recoilAmount.current = 0.1;
+      
+      // Play weapon sound
+      if (currentWeapon === 'rifle') {
+        playSound('/sounds/rifle.mp3', 0.3);
+      } else if (currentWeapon === 'shotgun') {
+        playSound('/sounds/shotgun.mp3', 0.5);
+      }
     }
 
     // Animate recoil

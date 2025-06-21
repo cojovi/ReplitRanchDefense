@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect } from "react";
-import { KeyboardControls } from "@react-three/drei";
 import { useGameState } from "./lib/stores/useGameState";
 import { useAudio } from "./lib/stores/useAudio";
 import Game from "./components/game/Game";
@@ -9,36 +8,7 @@ import GameHUD from "./components/ui/GameHUD";
 import GameOverScreen from "./components/ui/GameOverScreen";
 import "@fontsource/inter";
 
-// Define control keys for the FPS game
-enum Controls {
-  forward = 'forward',
-  backward = 'backward',
-  leftward = 'leftward',
-  rightward = 'rightward',
-  jump = 'jump',
-  sprint = 'sprint',
-  fire = 'fire',
-  reload = 'reload',
-  weapon1 = 'weapon1',
-  weapon2 = 'weapon2',
-  weapon3 = 'weapon3',
-  pause = 'pause'
-}
 
-const controlMap = [
-  { name: Controls.forward, keys: ['KeyW', 'ArrowUp'] },
-  { name: Controls.backward, keys: ['KeyS', 'ArrowDown'] },
-  { name: Controls.leftward, keys: ['KeyA', 'ArrowLeft'] },
-  { name: Controls.rightward, keys: ['KeyD', 'ArrowRight'] },
-  { name: Controls.jump, keys: ['Space'] },
-  { name: Controls.sprint, keys: ['ShiftLeft', 'ShiftRight'] },
-  { name: Controls.fire, keys: ['Mouse0'] },
-  { name: Controls.reload, keys: ['KeyR'] },
-  { name: Controls.weapon1, keys: ['Digit1'] },
-  { name: Controls.weapon2, keys: ['Digit2'] },
-  { name: Controls.weapon3, keys: ['Digit3'] },
-  { name: Controls.pause, keys: ['Escape'] }
-];
 
 function App() {
   const { gameState, isPaused } = useGameState();
@@ -81,32 +51,30 @@ function App() {
       
       {(gameState === 'playing' || gameState === 'paused') && (
         <>
-          <KeyboardControls map={controlMap}>
-            <Canvas
-              shadows
-              camera={{
-                position: [0, 1.7, 0],
-                fov: 75,
-                near: 0.1,
-                far: 1000
-              }}
-              gl={{
-                antialias: false, // Disable for retro look
-                powerPreference: "high-performance",
-                alpha: false
-              }}
-              style={{ 
-                imageRendering: 'pixelated',
-                filter: 'contrast(1.1) saturate(1.2)'
-              }}
-            >
-              <color attach="background" args={["#2d1810"]} />
-              
-              <Suspense fallback={null}>
-                <Game />
-              </Suspense>
-            </Canvas>
-          </KeyboardControls>
+          <Canvas
+            shadows
+            camera={{
+              position: [0, 1.7, 0],
+              fov: 75,
+              near: 0.1,
+              far: 1000
+            }}
+            gl={{
+              antialias: false, // Disable for retro look
+              powerPreference: "high-performance",
+              alpha: false
+            }}
+            style={{ 
+              imageRendering: 'pixelated',
+              filter: 'contrast(1.1) saturate(1.2)'
+            }}
+          >
+            <color attach="background" args={["#2d1810"]} />
+            
+            <Suspense fallback={null}>
+              <Game />
+            </Suspense>
+          </Canvas>
           
           <GameHUD />
         </>
